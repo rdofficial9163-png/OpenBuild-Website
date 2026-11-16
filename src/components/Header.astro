@@ -1,0 +1,74 @@
+---
+import { SITE_CONFIG } from '../data/site';
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      <img src="/assets/openbuild-logo.png" alt="OpenBuild IDE logo" width="34" height="34" />
+      <span>{SITE_CONFIG.name}</span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <ul id="primary-nav" class="nav-links nav-desktop">
+        {SITE_CONFIG.nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noopener noreferrer' : undefined}
+              aria-current={!item.external && pathname === item.href ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle color theme">
+        Theme
+      </button>
+      <a href="/download" class="btn btn-primary" style="padding:0.5rem 0.9rem;font-size:0.9rem;">
+        Download
+      </a>
+      <button
+        id="mobile-menu-btn"
+        class="icon-btn mobile-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        Menu
+      </button>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const nav = document.getElementById('primary-nav');
+  if (menuBtn && nav) {
+    menuBtn.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  const themeBtn = document.getElementById('theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const root = document.documentElement;
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        root.removeAttribute('data-theme');
+        try { localStorage.setItem('openbuild-theme', 'light'); } catch {}
+      } else {
+        root.setAttribute('data-theme', 'dark');
+        try { localStorage.setItem('openbuild-theme', 'dark'); } catch {}
+      }
+    });
+  }
+</script>

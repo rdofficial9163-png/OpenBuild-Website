@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="How to Build an APK on Android — OpenBuild IDE"
+  description="Step-by-step guide to creating a project, configuring toolchains, and compiling an APK directly on an Android phone with OpenBuild IDE."
+  type="article"
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Guides', href: '/guides' },
+    { name: 'Build APK on Android', href: '/guides/build-apk-on-android' },
+  ]}
+>
+  <section class="section">
+    <div class="container" style="max-width:780px;">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a> / <a href="/guides">Guides</a> / <span>Build APK on Android</span>
+      </nav>
+      <h1>How to Build an APK on Android</h1>
+      <p class="lead">Compile standard Android projects into installable APKs right from your phone.</p>
+      <h2>1. Install OpenBuild IDE &amp; Toolchains</h2>
+      <p>Install the <a href="/download">v0.1.0 APK</a> and verify JDK, Gradle, and Android Build Tools paths.</p>
+      <h2>2. Create or Open a Project</h2>
+      <p>Ensure <code>AndroidManifest.xml</code>, <code>build.gradle</code>, and your Java/XML files are in place.</p>
+      <h2>3. Run Gradle &amp; Retrieve the APK</h2>
+      <p>Execute your debug build task, inspect the build output log, and locate <code>app-debug.apk</code> in your build outputs folder.</p>
+    </div>
+  </section>
+</BaseLayout>

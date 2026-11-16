@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { RELEASES } from '../data/releases';
+---
+
+<BaseLayout
+  title="Changelog — OpenBuild IDE"
+  description="Official release history and APK download links for OpenBuild IDE."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Changelog', href: '/changelog' },
+  ]}
+>
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Changelog</span></nav>
+      <h1>Release Changelog</h1>
+      <p class="lead">Verified release history linked directly to GitHub Releases.</p>
+
+      <div class="grid" style="margin-top:1.75rem;">
+        {RELEASES.map((rel) => (
+          <article class="card">
+            <h2>{rel.version} {rel.releaseDate && <span class="muted" style="font-size:0.9rem;">· {rel.releaseDate}</span>}</h2>
+            <p class="muted">{rel.notesSummary}</p>
+            {rel.knownIssues.length > 0 && (
+              <div>
+                <h3>Notes</h3>
+                <ul>
+                  {rel.knownIssues.map((issue) => <li class="muted">{issue}</li>)}
+                </ul>
+              </div>
+            )}
+            <div class="btn-group">
+              <a href={rel.apkUrl} class="btn btn-primary">Download APK ({rel.version})</a>
+              <a href={rel.releasePageUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                View on GitHub Releases
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

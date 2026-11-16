@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Android IDE on Your Phone — OpenBuild IDE"
+  description="How on-device Android IDE workflows work on mobile phones: editing Java/XML, configuring ARM64 toolchains, and compiling APKs locally."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Android IDE Guide', href: '/android-ide' },
+  ]}
+>
+  <section class="section">
+    <div class="container" style="max-width:780px;">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Android IDE</span></nav>
+      <h1>Developing Android Apps Directly on a Phone</h1>
+      <p class="lead">
+        Modern Android phones run multi-core ARM64 processors capable of compiling Java sources and
+        packaging APKs without a desktop workstation.
+      </p>
+      <h2>What an On-Device Android IDE Requires</h2>
+      <ul>
+        <li>Structured project files (Gradle scripts, manifest, Java sources, XML resources).</li>
+        <li>A compatible JDK, Gradle wrapper/distribution, and Android Build Tools.</li>
+        <li>Clear build logs so errors can be diagnosed on a compact screen.</li>
+      </ul>
+      <div class="btn-group">
+        <a href="/guides/build-apk-on-android" class="btn btn-primary">Read APK Build Guide</a>
+        <a href="/download" class="btn btn-secondary">Download OpenBuild IDE</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

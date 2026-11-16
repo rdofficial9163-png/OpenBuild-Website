@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Java Android Development on Mobile — OpenBuild IDE"
+  description="Guide to structuring Java Android applications, XML layouts, and manifests inside OpenBuild IDE."
+  type="article"
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Guides', href: '/guides' },
+    { name: 'Java Android Development', href: '/guides/java-android-development' },
+  ]}
+>
+  <section class="section">
+    <div class="container" style="max-width:780px;">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a> / <a href="/guides">Guides</a> / <span>Java Android Development</span>
+      </nav>
+      <h1>Java Android Development on a Phone</h1>
+      <p class="lead">Keep activities modular, XML layouts clean, and dependencies minimal for fast mobile builds.</p>
+      <p>
+        Standard Android Java projects separate logic inside <code>src/main/java/</code> from declarative
+        views inside <code>src/main/res/layout/</code>. Keeping dependency trees lean shortens Gradle
+        resolution times and reduces mobile memory pressure.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

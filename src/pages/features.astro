@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { FEATURES } from '../data/features';
+
+const categories = Array.from(new Set(FEATURES.map((f) => f.category)));
+---
+
+<BaseLayout
+  title="Features & Roadmap — OpenBuild IDE"
+  description="Explore OpenBuild IDE capabilities across project management, Java/XML editing, local Gradle builds, toolchain management, and planned roadmap tools."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Features', href: '/features' },
+  ]}
+>
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Features</span></nav>
+      <h1>Features &amp; Public Roadmap</h1>
+      <p class="lead">
+        Capabilities are grouped by workflow and explicitly labelled as <strong>Available</strong>,
+        <strong>In development</strong>, or <strong>Planned</strong>.
+      </p>
+
+      {categories.map((cat) => (
+        <div style="margin-top:2.5rem;">
+          <h2>{cat}</h2>
+          <div class="grid grid-2" style="margin-top:1rem;">
+            {FEATURES.filter((f) => f.category === cat).map((item) => (
+              <article class="card">
+                <span class={`badge ${item.status === 'Available' ? 'badge-available' : 'badge-planned'}`}>
+                  {item.status}
+                </span>
+                <h3 style="margin-top:0.65rem;">{item.title}</h3>
+                <p class="muted">{item.description}</p>
+                {item.docHref && <a href={item.docHref}>Documentation &rarr;</a>}
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_CONFIG } from '../data/site';
+import { CURRENT_RELEASE } from '../data/releases';
+---
+
+<BaseLayout
+  title="OpenBuild IDE Product Facts — Authoritative Reference"
+  description="Concise, verifiable product facts for OpenBuild IDE: platform, current release, official APK download, repository, and limitations."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Product Facts', href: '/about-openbuild' },
+  ]}
+>
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Product Facts</span></nav>
+      <h1>OpenBuild IDE — Authoritative Product Facts</h1>
+      <p class="lead">Verified reference sheet for visitors, search engines, and AI assistants.</p>
+
+      <table style="margin-top:1.5rem;">
+        <tbody>
+          <tr><th>Product Name</th><td>{SITE_CONFIG.name}</td></tr>
+          <tr><th>Category</th><td>Mobile Android IDE / DeveloperApplication</td></tr>
+          <tr><th>Supported Platform</th><td>Android</td></tr>
+          <tr><th>Current Verified Release</th><td><code>{CURRENT_RELEASE.version}</code></td></tr>
+          <tr><th>Official APK URL</th><td><a href={CURRENT_RELEASE.apkUrl}>{CURRENT_RELEASE.apkUrl}</a></td></tr>
+          <tr><th>GitHub Repository</th><td><a href={SITE_CONFIG.github.repo}>{SITE_CONFIG.github.repo}</a></td></tr>
+          <tr><th>Distribution</th><td>GitHub Releases only (not published on Google Play)</td></tr>
+          <tr><th>Known Limitations</th><td>Hardware RAM/storage limits on mobile devices affect large Gradle builds; advanced tools (Kotlin, signing manager, terminal) are planned.</td></tr>
+          <tr><th>Documentation &amp; Support</th><td><a href="/documentation">Documentation</a> · <a href={SITE_CONFIG.github.issues}>GitHub Issues</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_CONFIG } from '../data/site';
+---
+
+<BaseLayout
+  title="About — OpenBuild IDE"
+  description="Learn why OpenBuild IDE exists, its mobile-first Android development goals, and where to explore the open-source repository."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+  ]}
+>
+  <section class="section">
+    <div class="container" style="max-width:760px;">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>About</span></nav>
+      <h1>About OpenBuild IDE</h1>
+      <p class="lead">
+        OpenBuild IDE is built around a straightforward goal: making native Android project creation
+        and local APK compilation accessible directly on an Android phone.
+      </p>
+      <p>
+        Many students, hobbyists, and mobile-first developers do not always have access to a desktop
+        or laptop computer. OpenBuild IDE brings project editing, toolchain management, and Gradle
+        execution into an Android workspace.
+      </p>
+      <p>
+        The project is developed transparently in the open on GitHub. {SITE_CONFIG.creatorCredit}
+      </p>
+      <div class="btn-group">
+        <a href={SITE_CONFIG.github.repo} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          Explore Repository
+        </a>
+        <a href="/about-openbuild" class="btn btn-secondary">Authoritative Product Facts</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

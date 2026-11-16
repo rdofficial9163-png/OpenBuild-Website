@@ -1,0 +1,17 @@
+---
+// src/pages/terms.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_CONFIG } from '../data/site';
+---
+<BaseLayout title="Terms of Use — OpenBuild IDE" description="Terms of use for OpenBuild IDE and its official website.">
+  <section class="section">
+    <div class="container" style="max-width:760px;">
+      <h1>Terms of Use</h1>
+      <p class="muted">
+        OpenBuild IDE software is provided on an "as-is" basis. Check the
+        <a href={SITE_CONFIG.github.repo} target="_blank" rel="noopener noreferrer">GitHub repository</a>
+        for the applicable open-source license terms governing source code and binary releases.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

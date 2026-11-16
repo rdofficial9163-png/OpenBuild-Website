@@ -1,0 +1,50 @@
+openbuild-website/
+├── public/
+│   ├── assets/
+│   │   ├── openbuild-logo.png          # Copy from your PRD ZIP
+│   │   ├── openbuild-logo.svg          # Copy from your PRD ZIP
+│   │   └── social-share-placeholder.png# Copy from your PRD ZIP
+│   ├── manifest.webmanifest
+│   └── sw.js
+├── src/
+│   ├── data/
+│   │   ├── site.ts                     # Single source of truth (URLs, social banner, brand)
+│   │   ├── releases.ts                 # Single source of truth for v0.1.0 APK & releases
+│   │   ├── features.ts                 # Verified vs. In development / Planned features
+│   │   └── docs.ts                     # Documentation articles & guides data
+│   ├── components/
+│   │   ├── Header.astro
+│   │   ├── Footer.astro
+│   │   ├── ConceptPreview.astro        # Clearly labelled UI concept (not real screenshot)
+│   │   └── CopyButton.astro
+│   ├── layouts/
+│   │   └── BaseLayout.astro            # SEO, canonical, OG/Twitter, JSON-LD, PWA registration
+│   ├── styles/
+│   │   └── global.css                  # Editorial cream/charcoal + OpenBuild blue palette
+│   └── pages/
+│       ├── index.astro                 # /
+│       ├── download.astro              # /download
+│       ├── features.astro              # /features
+│       ├── documentation.astro         # /documentation (searchable KB)
+│       ├── changelog.astro             # /changelog
+│       ├── about.astro                 # /about
+│       ├── about-openbuild.astro       # /about-openbuild (authoritative product facts)
+│       ├── android-ide.astro           # /android-ide
+│       ├── guides/
+│       │   ├── index.astro             # /guides
+│       │   ├── build-apk-on-android.astro
+│       │   ├── java-android-development.astro
+│       │   └── arm64-android-builds.astro
+│       ├── privacy.astro               # /privacy
+│       ├── terms.astro                 # /terms
+│       ├── cookies.astro               # /cookies
+│       ├── contact.astro               # /contact
+│       ├── offline.astro               # /offline (PWA fallback)
+│       ├── 404.astro                   # /404
+│       ├── robots.txt.ts               # /robots.txt
+│       ├── llms.txt.ts                 # /llms.txt
+│       └── llms-full.txt.ts            # /llms-full.txt
+├── astro.config.mjs
+├── netlify.toml
+├── package.json
+└── tsconfig.json

@@ -1,0 +1,23 @@
+{
+  "name": "OpenBuild IDE",
+  "short_name": "OpenBuild",
+  "description": "Build Android Apps on Your Phone. Official website and documentation for OpenBuild IDE.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F7F4EC",
+  "theme_color": "#4B6BFF",
+  "icons": [
+    {
+      "src": "/assets/openbuild-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/openbuild-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

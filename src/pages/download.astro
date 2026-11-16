@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CopyButton from '../components/CopyButton.astro';
+import { SITE_CONFIG } from '../data/site';
+import { CURRENT_RELEASE } from '../data/releases';
+---
+
+<BaseLayout
+  title="Download OpenBuild IDE APK — Android Release"
+  description="Download the official OpenBuild IDE v0.1.0 Android APK from GitHub Releases, read installation instructions, and verify release details."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Download', href: '/download' },
+  ]}
+>
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a> / <span>Download</span>
+      </nav>
+      <h1>Download {SITE_CONFIG.name}</h1>
+      <p class="lead">
+        Official Android APK releases are hosted canonically on GitHub Releases.
+      </p>
+
+      <div class="card" style="margin-top:1.75rem;">
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <img src="/assets/openbuild-logo.png" alt="OpenBuild IDE icon" width="56" height="56" style="border-radius:12px;" />
+          <div>
+            <h2 style="margin:0;">{SITE_CONFIG.name} {CURRENT_RELEASE.version}</h2>
+            <p class="muted" style="margin:0.2rem 0 0;">{CURRENT_RELEASE.distributionNote}</p>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <a href={CURRENT_RELEASE.apkUrl} class="btn btn-primary">
+            Download OpenBuild APK ({CURRENT_RELEASE.version})
+          </a>
+          <a href={CURRENT_RELEASE.releasePageUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            View All GitHub Releases
+          </a>
+          <a href={SITE_CONFIG.github.repo} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            View Source on GitHub
+          </a>
+        </div>
+
+        <table style="margin-top:1.5rem;">
+          <tbody>
+            <tr><th>Version</th><td><code>{CURRENT_RELEASE.version}</code></td></tr>
+            <tr><th>Release Date</th><td>{CURRENT_RELEASE.releaseDate ?? 'See GitHub Releases'}</td></tr>
+            <tr><th>APK File Size</th><td>{CURRENT_RELEASE.apkSize ?? 'See GitHub Release asset'}</td></tr>
+            <tr><th>Android Compatibility</th><td>{CURRENT_RELEASE.minAndroid ?? 'See GitHub Release notes'}</td></tr>
+            <tr>
+              <th>SHA-256 Checksum</th>
+              <td>{CURRENT_RELEASE.sha256 ? <code>{CURRENT_RELEASE.sha256}</code> : 'Not yet published on release'}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid-2">
+      <div class="card">
+        <h2>Installation Steps</h2>
+        <ol style="padding-left:1.2rem;">
+          <li>Tap <strong>Download OpenBuild APK</strong> to fetch <code>app-release.apk</code> from GitHub Releases.</li>
+          <li>Open the downloaded APK from your browser notifications or file manager.</li>
+          <li>Allow <em>Install unknown apps</em> for your browser/file manager if prompted by Android.</li>
+          <li>Launch OpenBuild IDE and follow the <a href="/documentation#toolchain-setup">toolchain setup guide</a>.</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2>Verify Downloaded File Integrity</h2>
+        <p class="muted">
+          Once a verified SHA-256 checksum is published in the release metadata, compare it locally before installing:
+        </p>
+        <pre><code>sha256sum app-release.apk</code></pre>
+        <CopyButton text="sha256sum app-release.apk" label="Copy command" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

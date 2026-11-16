@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Developer Guides — OpenBuild IDE"
+  description="Step-by-step tutorials for building APKs on Android, Java mobile development, and ARM64 build environments."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Guides', href: '/guides' },
+  ]}
+>
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Guides</span></nav>
+      <h1>OpenBuild Developer Guides</h1>
+      <div class="grid grid-3" style="margin-top:1.5rem;">
+        <article class="card">
+          <h2>Build an APK on Android</h2>
+          <p class="muted">Walk through configuring a project and compiling a debug APK on your device.</p>
+          <a href="/guides/build-apk-on-android">Read tutorial &rarr;</a>
+        </article>
+        <article class="card">
+          <h2>Java Android Development</h2>
+          <p class="muted">Project layout, activities, XML resources, and mobile coding practices.</p>
+          <a href="/guides/java-android-development">Read guide &rarr;</a>
+        </article>
+        <article class="card">
+          <h2>ARM64 Android Builds</h2>
+          <p class="muted">How local toolchains, AAPT2, and Gradle execute on ARM64 phones.</p>
+          <a href="/guides/arm64-android-builds">Read guide &rarr;</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

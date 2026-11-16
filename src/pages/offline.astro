@@ -1,0 +1,18 @@
+---
+// src/pages/offline.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Offline — OpenBuild IDE" description="You are currently offline." noindex={true}>
+  <section class="section">
+    <div class="container" style="max-width:640px;">
+      <h1>You Are Offline</h1>
+      <p class="muted">
+        No internet connection detected. Previously cached documentation pages remain available while offline.
+      </p>
+      <div class="btn-group">
+        <a href="/" class="btn btn-primary">Go to Homepage</a>
+        <a href="/documentation" class="btn btn-secondary">Open Cached Docs</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

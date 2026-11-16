@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="ARM64 Android Build Environment — OpenBuild IDE"
+  description="Understanding ARM64 native build tools, AAPT2, JDK, and Gradle performance on Android devices."
+  type="article"
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Guides', href: '/guides' },
+    { name: 'ARM64 Android Builds', href: '/guides/arm64-android-builds' },
+  ]}
+>
+  <section class="section">
+    <div class="container" style="max-width:780px;">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a> / <a href="/guides">Guides</a> / <span>ARM64 Android Builds</span>
+      </nav>
+      <h1>Understanding ARM64 Android Builds</h1>
+      <p class="lead">Why architecture-matched native binaries matter when compiling Android apps on a phone.</p>
+      <p>
+        Android build tools such as AAPT2 and JDK binaries must match the device's CPU architecture
+        (commonly <code>aarch64</code> / ARM64) to execute natively without desktop x86 emulation overhead.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

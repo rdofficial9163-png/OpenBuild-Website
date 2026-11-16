@@ -1,0 +1,146 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_CONFIG } from '../data/site';
+import { CURRENT_RELEASE } from '../data/releases';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+  breadcrumbs?: Array<{ name: string; href: string }>;
+}
+
+const {
+  title,
+  description,
+  noindex = false,
+  type = 'website',
+  breadcrumbs = [],
+} = Astro.props;
+
+const siteOrigin = Astro.site?.toString().replace(/\/$/, '') || '';
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const shareImage = SITE_CONFIG.SOCIAL_SHARE_IMAGE_URL.startsWith('http')
+  ? SITE_CONFIG.SOCIAL_SHARE_IMAGE_URL
+  : `${siteOrigin}${SITE_CONFIG.SOCIAL_SHARE_IMAGE_URL}`;
+
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: SITE_CONFIG.name,
+  operatingSystem: 'Android',
+  applicationCategory: 'DeveloperApplication',
+  url: siteOrigin || canonicalUrl,
+  downloadUrl: CURRENT_RELEASE.apkUrl,
+  softwareVersion: CURRENT_RELEASE.version,
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_CONFIG.name,
+  url: siteOrigin || canonicalUrl,
+};
+
+const breadcrumbSchema =
+  breadcrumbs.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((b, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: b.name,
+          item: `${siteOrigin}${b.href}`,
+        })),
+      }
+    : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <link rel="icon" type="image/svg+xml" href="/assets/openbuild-logo.svg" />
+    <link rel="icon" type="image/png" href="/assets/openbuild-logo.png" />
+    <link rel="apple-touch-icon" href="/assets/openbuild-logo.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#4B6BFF" />
+
+    <!-- Open Graph & Twitter -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE_CONFIG.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={shareImage} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+    {breadcrumbSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    )}
+
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem('openbuild-theme');
+        if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+
+    <div id="sw-update-banner" role="status" aria-live="polite">
+      <span>A new version of this site is available.</span>
+      <button id="sw-reload-btn" class="btn btn-primary" type="button">Refresh</button>
+    </div>
+
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').then((reg) => {
+            reg.addEventListener('updatefound', () => {
+              const worker = reg.installing;
+              if (!worker) return;
+              worker.addEventListener('statechange', () => {
+                if (worker.state === 'installed' && navigator.serviceWorker.controller) {
+                  const banner = document.getElementById('sw-update-banner');
+                  const btn = document.getElementById('sw-reload-btn');
+                  if (banner && btn) {
+                    banner.style.display = 'flex';
+                    btn.onclick = () => {
+                      worker.postMessage({ type: 'SKIP_WAITING' });
+                      window.location.reload();
+                    };
+                  }
+                }
+              });
+            });
+          }).catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>

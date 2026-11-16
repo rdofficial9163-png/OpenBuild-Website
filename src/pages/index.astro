@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ConceptPreview from '../components/ConceptPreview.astro';
+import { SITE_CONFIG } from '../data/site';
+import { CURRENT_RELEASE } from '../data/releases';
+import { FEATURES } from '../data/features';
+
+const highlights = FEATURES.slice(0, 6);
+---
+
+<BaseLayout
+  title="OpenBuild IDE — Build Android Apps on Your Phone"
+  description="Discover OpenBuild IDE, a mobile-first Android development environment. Explore its features, download the Android APK, and access the open-source project on GitHub."
+>
+  <section class="section">
+    <div class="container grid grid-2" style="align-items:center;gap:2.5rem;">
+      <div>
+        <span class="badge badge-available">Open Source · {CURRENT_RELEASE.version}</span>
+        <h1 style="margin-top:0.85rem;">Build Android Apps on Your Phone.</h1>
+        <p class="lead">
+          OpenBuild IDE brings Android development to your device. Create projects, write code,
+          manage toolchains, and build Android applications from one mobile workspace.
+        </p>
+        <div class="btn-group">
+          <a href={CURRENT_RELEASE.apkUrl} class="btn btn-primary">Download OpenBuild APK</a>
+          <a href={SITE_CONFIG.github.repo} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            View Source on GitHub
+          </a>
+        </div>
+        <p class="muted" style="font-size:0.88rem;margin-top:0.9rem;">
+          Release {CURRENT_RELEASE.version} · {CURRENT_RELEASE.distributionNote}
+        </p>
+      </div>
+      <ConceptPreview />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>How It Works</h2>
+      <p class="lead">A straightforward three-step workflow directly on your Android device.</p>
+      <div class="grid grid-3" style="margin-top:1.5rem;">
+        <div class="card">
+          <h3>1. Create or Open</h3>
+          <p class="muted">Start a new Android project or open an existing local project directory.</p>
+        </div>
+        <div class="card">
+          <h3>2. Edit & Configure</h3>
+          <p class="muted">Write Java and XML files and verify JDK, Gradle, and Android SDK toolchains.</p>
+        </div>
+        <div class="card">
+          <h3>3. Build & Export</h3>
+          <p class="muted">Run Gradle locally on-device, inspect logs, and access your generated APK.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Core Capabilities</h2>
+      <p class="lead">Verified workflows and transparent roadmap status. <a href="/features">View all features</a>.</p>
+      <div class="grid grid-3" style="margin-top:1.5rem;">
+        {highlights.map((item) => (
+          <article class="card">
+            <span class={`badge ${item.status === 'Available' ? 'badge-available' : 'badge-planned'}`}>
+              {item.status}
+            </span>
+            <h3 style="margin-top:0.75rem;">{item.title}</h3>
+            <p class="muted" style="margin-bottom:0.75rem;">{item.description}</p>
+            {item.docHref && <a href={item.docHref}>Read guide &rarr;</a>}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid-2">
+      <div class="card">
+        <h2>Download {SITE_CONFIG.name} {CURRENT_RELEASE.version}</h2>
+        <p class="muted">{CURRENT_RELEASE.distributionNote}</p>
+        <div class="btn-group">
+          <a href={CURRENT_RELEASE.apkUrl} class="btn btn-primary">Download APK ({CURRENT_RELEASE.version})</a>
+          <a href="/download" class="btn btn-secondary">Release & Install Details</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Open-Source Transparency</h2>
+        <p class="muted">
+          Inspect the codebase, track releases, or report bugs directly on GitHub.
+        </p>
+        <div class="btn-group">
+          <a href={SITE_CONFIG.github.repo} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            GitHub Repository
+          </a>
+          <a href={SITE_CONFIG.github.issues} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            Issue Tracker
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="grid grid-2" style="margin-top:1.5rem;">
+        <div class="card">
+          <h3>What is OpenBuild IDE?</h3>
+          <p class="muted">An open-source Android development environment built for creating and building Android apps directly on an Android phone or tablet.</p>
+        </div>
+        <div class="card">
+          <h3>Where can I download OpenBuild?</h3>
+          <p class="muted">From our <a href="/download">Download page</a> or directly via <a href={SITE_CONFIG.github.releases} target="_blank" rel="noopener noreferrer">GitHub Releases</a>. It is not on Google Play.</p>
+        </div>
+        <div class="card">
+          <h3>Does OpenBuild require cloud compilation?</h3>
+          <p class="muted">No. OpenBuild is designed around local on-device Gradle and toolchain execution.</p>
+        </div>
+        <div class="card">
+          <h3>How do I report a bug?</h3>
+          <p class="muted">Open an issue on the <a href={SITE_CONFIG.github.issues} target="_blank" rel="noopener noreferrer">GitHub issue tracker</a> with your device details and build logs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

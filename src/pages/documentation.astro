@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CopyButton from '../components/CopyButton.astro';
+import { DOC_ARTICLES } from '../data/docs';
+---
+
+<BaseLayout
+  title="Documentation — OpenBuild IDE"
+  description="Official OpenBuild IDE user guides: installation, project structure, JDK/Gradle/Android SDK setup, building APKs, and troubleshooting."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Documentation', href: '/documentation' },
+  ]}
+>
+  <section class="section">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Documentation</span></nav>
+      <h1>Documentation</h1>
+      <p class="lead">Setup instructions, build workflows, and troubleshooting for OpenBuild IDE.</p>
+
+      <div style="margin-top:1.5rem;max-width:460px;">
+        <label for="doc-search" style="display:block;font-weight:600;margin-bottom:0.4rem;">Search articles</label>
+        <input
+          id="doc-search"
+          type="search"
+          placeholder="Search Gradle, JDK, APK, install..."
+          style="width:100%;padding:0.65rem 0.9rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.95rem;"
+        />
+      </div>
+
+      <div class="card" style="margin-top:1.5rem;">
+        <strong>Table of Contents</strong>
+        <ul style="margin:0.6rem 0 0;padding-left:1.2rem;">
+          {DOC_ARTICLES.map((doc) => (
+            <li><a href={`#${doc.id}`}>{doc.title}</a> <span class="muted">({doc.category})</span></li>
+          ))}
+        </ul>
+      </div>
+
+      <div id="docs-list" class="grid" style="margin-top:2rem;">
+        {DOC_ARTICLES.map((doc) => (
+          <article id={doc.id} class="card doc-item" data-search={`${doc.title} ${doc.summary} ${doc.body.join(' ')}`.toLowerCase()}>
+            <span class="badge badge-planned">{doc.category}</span>
+            <h2 style="margin-top:0.6rem;">{doc.title}</h2>
+            <p><strong>{doc.summary}</strong></p>
+            {doc.body.map((para) => <p class="muted">{para}</p>)}
+            {doc.code && (
+              <div>
+                <pre><code>{doc.code}</code></pre>
+                <CopyButton text={doc.code} label="Copy snippet" />
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    const input = document.getElementById('doc-search');
+    const items = document.querySelectorAll('.doc-item');
+    if (input) {
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        items.forEach((el) => {
+          const haystack = el.getAttribute('data-search') || '';
+          el.style.display = !q || haystack.includes(q) ? '' : 'none';
+        });
+      });
+    }
+  </script>
+</BaseLayout>
